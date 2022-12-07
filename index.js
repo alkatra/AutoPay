@@ -36,10 +36,12 @@ const store = new MongoDBStore({
 });
 app.use(
   session({
-    secret: "mysecret",
+    secret: "mysecretxxx",
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 },
     saveUninitialized: false,
     resave: false,
     store: store,
+    cookie: { secure: true },
   })
 );
 

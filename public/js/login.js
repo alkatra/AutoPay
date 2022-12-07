@@ -20,6 +20,7 @@ function login() {
 
   fetch("https://" + IP + "/api/login", {
     method: "POST",
+    credentials: "include",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
