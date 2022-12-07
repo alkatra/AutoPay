@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html style="background: url(../img/background.jpg) no-repeat center center fixed; -webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+height: 100%;
+">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to your Account!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head>
+  <body>
+  <section class="section">
+    <div class="columns is-centered"><div class="column is-half">
+      <div class="box" id="main-container">
+        <h1 class="title is-primary">
+          Add a new client:
+        </h1></br>
+        <div class="field">
+          <label class="label">Customer Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="John Doe" id="name">
+          </div>
+          <p class="help">For your reference.</p>
+        </div>
+        <div class="field">
+          <label class="label">Phone Number</label>
+          <div class="control">
+            <input class="input" type="number" placeholder="0400000000" id="number">
+          </div>
+          <p class="help" id="numberError">We will send link to pay to this number.</p>
+        </div>
+        <div class="field">
+          <label class="label">Item Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Holden Astra 2008" id="itemName">
+          </div>
+          <p class="help">What service are you providing to this client?</p>
+        </div>
+        <br/>
+        <div id="schedule">
+          <h2 class="title is-primary">
+            Schedule 1
+          </h2>
+          <div class="field">
+          <label class="label">Amount of Payment (AUD $)</label>
+          <div class="control">
+            <input class="input" type="number" placeholder="100" id="firstAmount1">
+          </div>
+          <p class="help">The amount of first payment to be taken out.</p>
+          <div class="field">
+            <label class="label">Date of First Payment</label>
+          <div class="control">
+            <input type="date" id="firstDate1">
+            <p class="help" id="dateError1">Must be today or onwards. This will be shifted further if your client fails to pay today. The schedule will be affected accordingly.</p>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Recurring Frequency:</label>
+          <div class="control">
+            <select name="recurring" id="recurring1" onchange="optionSelected(value, 1)">
+              <option value="once" >One time</option>
+              <option value="weekly" >Weekly</option>
+              <option value="fortnightly" >Fortnightly</option>
+              <option value="monthly" >Monthly</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" id="timesRecurringDiv1">
+          <label class="label">Times Recurring:</label>
+          <div class="control">
+            <input class="input" type="number" id="timesRecurring1" value=1>
+          </div>
+          <p class="help" id="timesRecurringError1">Set 0 if you want infinite recurring. </p>
+        </div>
+          </div>
+        </div>
+        <button class="button is-info" onclick="addSchedule()">Add another Schedule</button>
+  
+        <button class="button is-danger" onclick="addClientRedirect()">Add a client</button>
+      </div>
+
+    </div>
+    <br/>
+
+  </section>
+  <script src="/js/client-create.js" defer></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  </body>
+</html>

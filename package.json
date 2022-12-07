@@ -1,0 +1,28 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "agenda": "^5.0.0",
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.1",
+    "connect-mongodb-session": "^3.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongoose": "^6.7.2",
+    "node-fetch": "^3.3.0",
+    "node-schedule": "^2.1.0",
+    "nodemon": "^2.0.20",
+    "short-uuid": "^4.2.2",
+    "uuid": "^9.0.0"
+  }
+}

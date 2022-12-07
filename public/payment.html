@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html style="background: url(../img/background.jpg) no-repeat center center fixed; -webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+height: 100%;
+">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to your Account</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head>
+  <body>
+
+    <section class="section">
+      <div class="columns is-centered"><div class="column is-one-third">
+        <div class="box has-text-centered" id="main-container">
+          <h1 class="title is-primary">
+            Welcome to PayMeNow
+          </h1>
+          <div id="add-here"></div><br/>
+          <form onsubmit="return false;">
+            <div id="securepay-ui-container"></div>
+            <button class="button is-primary" onclick="mySecurePayUI.tokenise();">Submit</button>
+            <button class="button is-primary" onclick="mySecurePayUI.reset();">Reset</button>
+          </form>
+        </div>
+  
+      </div>
+      <br/>
+  
+    </section>
+
+
+
+    <script id="securepay-ui-js" src="https://payments-stest.npe.auspost.zone/v3/ui/client/securepay-ui.min.js"></script>
+    <script type="text/javascript">
+      var mySecurePayUI = new securePayUI.init({
+        containerId: 'securepay-ui-container',
+        scriptId: 'securepay-ui-js',
+        clientId: '0oaxb9i8P9vQdXTsn3l5',
+        merchantCode: '5AR0055',
+        card: {
+            allowedCardTypes: ['visa', 'mastercard'],
+            showCardIcons: false,
+            onCardTypeChange: function(cardType) {
+              // card type has changed
+            },
+            onBINChange: function(cardBIN) {
+              // card BIN has changed
+            },
+            onFormValidityChange: function(valid) {
+              // form validity has changed
+            },
+            onTokeniseSuccess: function(tokenisedCard) {
+              console.log(tokenisedCard)
+              postTokenisedCard(tokenisedCard)
+              // card was successfully tokenised or saved card was successfully retrieved 
+            },
+            onTokeniseError: function(errors) {
+              // tokenization failed
+            }
+        },
+        onLoadComplete: function () {
+          // the UI Component has successfully loaded and is ready to be interacted with
+        }
+      });
+    </script>
+    <script src="/js/payment.js"></script>
+
+  </body>
+</html>

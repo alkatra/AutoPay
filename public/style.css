@@ -1,0 +1,86 @@
+html, body {
+    height: 100%;
+    /* background-color: darkgray; */
+}
+
+#first-row {
+    height: 33%;
+}
+
+#second-row {
+    /* height:33%; */
+    max-width: 20%;
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+    /* border: grey solid 5px; */
+    /* background-color:white; */
+}
+
+#third-row {
+    height: 33%;
+    max-width: 20%;
+    margin: auto;
+    width: 60%;
+}
+
+#r-first-row {
+    height: 30%;
+}
+
+#r-second-row {
+    /* height:60%; */
+    /* min-width: 70%; */
+    /* margin: auto; */
+    /* width: 60%; */
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    /* padding: 10px; */
+    /* background-color:white; */
+}
+
+.flex-container {
+    display: flex;
+    height:50%;
+}
+
+#Fa, #Fb, #Sa, #Sb {
+   width: 50%; 
+   /* border: grey solid 5px; */
+   /* background-color:white; */
+   max-width: 40%;
+   margin: auto;
+   
+}
+
+#add-temp {
+    color:rgb(59, 93, 170);
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 50%; */
+  }
+
+#addressx {
+    max-width: 70%;
+}
+
+#addressTable {
+    max-width: 70%;
+}
+
+#currentAmbience {
+    min-height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#colors-container {
+    transform: translate(75%);
+    max-width: 40%;
+}
