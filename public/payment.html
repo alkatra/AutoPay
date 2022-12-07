@@ -59,11 +59,11 @@ height: 100%;
               // card was successfully tokenised or saved card was successfully retrieved 
             },
             onTokeniseError: function(errors) {
-              // tokenization failed
+              console.log(errors)
             }
         },
         onLoadComplete: function () {
-          // the UI Component has successfully loaded and is ready to be interacted with
+          console.log("Loaded")
         }
       });
     </script>
