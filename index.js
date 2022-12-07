@@ -45,7 +45,7 @@ app.use(
   })
 );
 var cors = require("cors");
-app.use(cors({ credentials: true, origin: "https://www.alkatra.com" }));
+app.use(cors({ credentials: true, origin: true }));
 const isAuth = require("./middleware/isAuth");
 const isNotAuth = require("./middleware/isNotAuth");
 var Client = require("./models/client");
