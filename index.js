@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const port = 443;
 const https = require("https");
-const fs = request("fs");
+const fs = require("fs");
 https
   .createServer(
     // Provide the private and public key to the server by reading each
