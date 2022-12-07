@@ -84,6 +84,7 @@ router.get("/paymentinformation/:id", async function (req, res) {
 });
 
 router.post("/token/:id", async function (req, res) {
+  console.log("Receiving");
   try {
     var result = await Client.findOne({ _id: req.params.id });
   } catch (e) {
