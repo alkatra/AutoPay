@@ -5,7 +5,7 @@ var Token = require("../models/token");
 var Client = require("../models/client");
 const schedule = require("node-schedule");
 const isAuth = require("../middleware/isAuth");
-
+import fetch from "node-fetch";
 const rule = new schedule.RecurrenceRule();
 rule.hour = 5;
 rule.minute = 15;
