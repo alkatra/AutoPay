@@ -1,5 +1,5 @@
 let clientlist = [];
-const IP = "52.64.251.195";
+const IP = "alkatra.com";
 
 async function loadClients() {
   let results = await fetch("http://" + IP + "/api/clients");

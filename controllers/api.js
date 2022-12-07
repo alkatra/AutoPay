@@ -50,8 +50,19 @@ router.post("/login", isNotAuth, async function (req, res) {
   }
 });
 
-router.get("/test", isAuth, async function (req, res) {
+router.get("/deletetest", isAuth, async function (req, res) {
   await Client.deleteMany({ name: "John Doe" });
+  await Client.deleteOne({ name: "Jane Doe" });
+  // await User.findOneAndUpdate({ username: "sagar" }, { $set: { clients: [] } });
+  // let results = await User.find();
+  // let results = await Token.find();
+  // let results = await Token.deleteMany({});
+  let results = await Client.find();
+  res.send(results);
+});
+
+router.get("/test", isAuth, async function (req, res) {
+  // await Client.deleteMany({ name: "John Doe" });
   // await Client.deleteOne({ name: "Jane Doe" });
   // await User.findOneAndUpdate({ username: "sagar" }, { $set: { clients: [] } });
   // let results = await User.find();
@@ -132,7 +143,7 @@ router.post("/client", isAuth, async function (req, res) {
       { username: req.session.username },
       { $push: { clients: { id: id } } }
     );
-    res.status(200).send({ link: "http://localhost/payment/" + id });
+    res.status(200).send({ link: "http://alkatra.com/payment/" + id });
   } catch (e) {
     res.status(500).send("Something went wrong.");
   }

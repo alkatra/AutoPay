@@ -1,5 +1,5 @@
 // make sure username is not repeatable
-const IP = "52.64.251.195";
+const IP = "alkatra.com";
 
 var curUser = JSON.parse(localStorage.getItem("curUser")) || "";
 

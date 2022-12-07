@@ -1,4 +1,4 @@
-const IP = "52.64.251.195";
+const IP = "alkatra.com";
 
 function postTokenisedCard(tokenisedCard) {
   fetch("http://" + IP + "/api/payment/token/" + id, {
