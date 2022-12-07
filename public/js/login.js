@@ -18,7 +18,7 @@ function login() {
   const username = $("#username").val();
   const password = $("#password").val();
   console.log(username, password);
-  fetch("http://" + IP + "/api/login", {
+  fetch("https://" + IP + "/api/login", {
     method: "POST",
     headers: {
       Accept: "application/json",

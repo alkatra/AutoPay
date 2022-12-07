@@ -3,7 +3,7 @@ const IP = "alkatra.com";
 
 let paymentsG = [];
 let clientID = "";
-fetch("http://" + IP + "/api/client/" + id)
+fetch("https://" + IP + "/api/client/" + id)
   .then((response) => response.json())
   .then((response) => {
     console.log(response);
@@ -137,7 +137,7 @@ function changeAmount(i) {
 }
 
 async function submitAmount(i) {
-  let response = await fetch("http://" + IP + "/api/payment/changeamount", {
+  let response = await fetch("https://" + IP + "/api/payment/changeamount", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -154,7 +154,7 @@ async function submitAmount(i) {
 }
 
 async function submitDate(i) {
-  let response = await fetch("http://" + IP + "/api/payment/changedate", {
+  let response = await fetch("https://" + IP + "/api/payment/changedate", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -171,7 +171,7 @@ async function submitDate(i) {
 }
 
 async function stopPayments(i) {
-  let response = await fetch("http://" + IP + "/api/payment/stoppayments", {
+  let response = await fetch("https://" + IP + "/api/payment/stoppayments", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -187,5 +187,5 @@ async function stopPayments(i) {
 }
 
 async function addSchedule() {
-  location.href = "http://localhost/schedule/" + clientID;
+  location.href = "https://" + IP + "/schedule/" + clientID;
 }

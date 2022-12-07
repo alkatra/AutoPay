@@ -1,7 +1,7 @@
 const IP = "alkatra.com";
 
 function postTokenisedCard(tokenisedCard) {
-  fetch("http://" + IP + "/api/payment/token/" + id, {
+  fetch("https://" + IP + "/api/payment/token/" + id, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -21,7 +21,7 @@ function postTokenisedCard(tokenisedCard) {
 }
 
 const id = window.location.href.split("/").pop();
-fetch("http://" + IP + "/api/payment/paymentinformation/" + id).then((r) => {
+fetch("https://" + IP + "/api/payment/paymentinformation/" + id).then((r) => {
   r.json().then((r) => {
     let string = "";
     string += `

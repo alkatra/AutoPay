@@ -143,7 +143,7 @@ router.post("/client", isAuth, async function (req, res) {
       { username: req.session.username },
       { $push: { clients: { id: id } } }
     );
-    res.status(200).send({ link: "http://alkatra.com/payment/" + id });
+    res.status(200).send({ link: "https://alkatra.com/payment/" + id });
   } catch (e) {
     res.status(500).send("Something went wrong.");
   }

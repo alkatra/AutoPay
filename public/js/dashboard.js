@@ -2,7 +2,7 @@ let clientlist = [];
 const IP = "alkatra.com";
 
 async function loadClients() {
-  let results = await fetch("http://" + IP + "/api/clients");
+  let results = await fetch("https://" + IP + "/api/clients");
   clientlist = await results.json();
   // console.log(json);
   if (clientlist.length == 0) {

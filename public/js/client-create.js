@@ -45,7 +45,7 @@ function addClientRedirect() {
     document.getElementById("numberError").classList.add("is-danger");
     return;
   }
-  fetch("http://" + IP + "/api/client", {
+  fetch("https://" + IP + "/api/client", {
     method: "POST",
     headers: {
       Accept: "application/json",

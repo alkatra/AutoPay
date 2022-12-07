@@ -30,7 +30,7 @@ function addSchedule() {
     ignoreLastPayment: false,
   };
 
-  fetch("http://" + IP + "/api/payment/schedule", {
+  fetch("https://" + IP + "/api/payment/schedule", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -42,7 +42,7 @@ function addSchedule() {
     }),
   }).then(async (response) => {
     response = await response.json();
-    location.href = "http://" + IP + "/dash";
+    location.href = "https://" + IP + "/dash";
   });
 }
 
