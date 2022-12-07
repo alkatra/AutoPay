@@ -1,6 +1,21 @@
 const express = require("express");
 const app = express();
-const port = 80;
+const port = 443;
+const https = require("https");
+const fs = request("fs");
+https
+  .createServer(
+    // Provide the private and public key to the server by reading each
+    // file's content with the readFileSync() method.
+    {
+      key: fs.readFileSync("key.pem"),
+      cert: fs.readFileSync("cert.pem"),
+    },
+    app
+  )
+  .listen(port, () => {
+    console.log("server is runing at port " + port);
+  });
 const base = `${__dirname}/public`;
 app.use(express.static("public"));
 var User = require("./models/user");
