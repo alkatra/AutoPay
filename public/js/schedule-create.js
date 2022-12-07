@@ -1,4 +1,5 @@
 const id = window.location.href.split("/").pop();
+const IP = "52.64.251.195";
 
 function addSchedule() {
   let firstAmount = $(`#firstAmount`).val();
