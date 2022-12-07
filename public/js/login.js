@@ -1,8 +1,7 @@
 // make sure username is not repeatable
+const IP = "52.64.251.195";
 
 var curUser = JSON.parse(localStorage.getItem("curUser")) || "";
-
-const API_URL = "http://localhost:3000/api";
 
 var rooms = [];
 
@@ -19,7 +18,7 @@ function login() {
   const username = $("#username").val();
   const password = $("#password").val();
   console.log(username, password);
-  fetch("http://www.alkatra.com/api/login", {
+  fetch("http://" + IP + "/api/login", {
     method: "POST",
     headers: {
       Accept: "application/json",

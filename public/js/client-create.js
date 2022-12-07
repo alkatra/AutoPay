@@ -1,5 +1,5 @@
 let schedules = 1;
-
+const IP = "52.64.251.195";
 function addClientRedirect() {
   const name = document.getElementById("name").value;
   const number = document.getElementById("number").value;
@@ -45,7 +45,7 @@ function addClientRedirect() {
     document.getElementById("numberError").classList.add("is-danger");
     return;
   }
-  fetch("http://www.alkatra.com/api/client", {
+  fetch("http://" + IP + "/api/client", {
     method: "POST",
     headers: {
       Accept: "application/json",

@@ -1,5 +1,7 @@
+const IP = "52.64.251.195";
+
 function postTokenisedCard(tokenisedCard) {
-  fetch("http://www.alkatra.com/api/payment/token/" + id, {
+  fetch("http://" + IP + "/api/payment/token/" + id, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -19,20 +21,18 @@ function postTokenisedCard(tokenisedCard) {
 }
 
 const id = window.location.href.split("/").pop();
-fetch("http://www.alkatra.com/api/payment/paymentinformation/" + id).then(
-  (r) => {
-    r.json().then((r) => {
-      let string = "";
-      string += `
+fetch("http://" + IP + "/api/payment/paymentinformation/" + id).then((r) => {
+  r.json().then((r) => {
+    let string = "";
+    string += `
         Your name: <strong>${r.name}</strong><br/>
         Your number: <strong>${r.number}</strong><br/>
         Service Offered: <strong>${r.itemName}</strong><br/><br/>
         <h2 class="is-2">You are paying:</h2><ul>`;
-      r.paymentSchedules.forEach((e, i) => {
-        string += `<li>${e}</li>`;
-      });
-      string += "</ul>";
-      document.getElementById("add-here").innerHTML = string;
+    r.paymentSchedules.forEach((e, i) => {
+      string += `<li>${e}</li>`;
     });
-  }
-);
+    string += "</ul>";
+    document.getElementById("add-here").innerHTML = string;
+  });
+});

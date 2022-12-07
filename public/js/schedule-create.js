@@ -29,7 +29,7 @@ function addSchedule() {
     ignoreLastPayment: false,
   };
 
-  fetch("http://www.alkatra.com/api/payment/schedule", {
+  fetch("http://" + IP + "/api/payment/schedule", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -41,7 +41,7 @@ function addSchedule() {
     }),
   }).then(async (response) => {
     response = await response.json();
-    location.href = "http://www.alkatra.com/dash";
+    location.href = "http://" + IP + "/dash";
   });
 }
 
