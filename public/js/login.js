@@ -26,6 +26,7 @@ function login() {
     },
     body: JSON.stringify({ username: username, password: password }),
   }).then((response) => {
+    console.log(response);
     location.reload();
   });
 }

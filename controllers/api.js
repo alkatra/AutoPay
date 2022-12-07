@@ -41,7 +41,7 @@ router.post("/login", isNotAuth, async function (req, res) {
         if (resp) {
           req.session.isAuth = true;
           req.session.username = req.body.username;
-          res.status(200).redirect("/dash");
+          res.status(200).send("Success");
         } else {
           res.status(403).send({ message: "Incorrect Password." });
         }
