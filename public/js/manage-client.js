@@ -1,7 +1,7 @@
 const id = window.location.href.split("/").pop();
 let paymentsG = [];
 let clientID = "";
-fetch("http://localhost/api/client/" + id)
+fetch("http://www.alkatra.com/api/client/" + id)
   .then((response) => response.json())
   .then((response) => {
     console.log(response);
@@ -135,24 +135,27 @@ function changeAmount(i) {
 }
 
 async function submitAmount(i) {
-  let response = await fetch("http://localhost/api/payment/changeamount", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      clientID: clientID,
-      paymentID: paymentsG[i]._id,
-      newAmount: document.getElementById(`amountinputx${i}`).value,
-    }),
-  });
+  let response = await fetch(
+    "http://www.alkatra.com/api/payment/changeamount",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        clientID: clientID,
+        paymentID: paymentsG[i]._id,
+        newAmount: document.getElementById(`amountinputx${i}`).value,
+      }),
+    }
+  );
   location.reload();
   console.log(await response.json());
 }
 
 async function submitDate(i) {
-  let response = await fetch("http://localhost/api/payment/changedate", {
+  let response = await fetch("http://www.alkatra.com/api/payment/changedate", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -169,17 +172,20 @@ async function submitDate(i) {
 }
 
 async function stopPayments(i) {
-  let response = await fetch("http://localhost/api/payment/stoppayments", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      clientID: clientID,
-      paymentID: paymentsG[i]._id,
-    }),
-  });
+  let response = await fetch(
+    "http://www.alkatra.com/api/payment/stoppayments",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        clientID: clientID,
+        paymentID: paymentsG[i]._id,
+      }),
+    }
+  );
   location.reload();
   console.log(await response.json());
 }

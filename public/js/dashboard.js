@@ -1,7 +1,7 @@
 let clientlist = [];
 
 async function loadClients() {
-  let results = await fetch("http://localhost/api/clients");
+  let results = await fetch("http://www.alkatra.com/api/clients");
   clientlist = await results.json();
   // console.log(json);
   if (clientlist.length == 0) {

@@ -45,7 +45,7 @@ function addClientRedirect() {
     document.getElementById("numberError").classList.add("is-danger");
     return;
   }
-  fetch("http://localhost/api/client", {
+  fetch("http://www.alkatra.com/api/client", {
     method: "POST",
     headers: {
       Accept: "application/json",
