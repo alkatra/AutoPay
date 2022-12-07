@@ -19,7 +19,7 @@ function login() {
   const username = $("#username").val();
   const password = $("#password").val();
   console.log(username, password);
-  fetch("http://localhost/api/login", {
+  fetch("http://52.64.251.195/api/login", {
     method: "POST",
     headers: {
       Accept: "application/json",
