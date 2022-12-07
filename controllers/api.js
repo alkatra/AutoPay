@@ -61,7 +61,7 @@ router.get("/deletetest", isAuth, async function (req, res) {
   res.send(results);
 });
 
-router.get("/test", isAuth, async function (req, res) {
+router.get("/test", async function (req, res) {
   // await Client.deleteMany({ name: "John Doe" });
   // await Client.deleteOne({ name: "Jane Doe" });
   // await User.findOneAndUpdate({ username: "sagar" }, { $set: { clients: [] } });
