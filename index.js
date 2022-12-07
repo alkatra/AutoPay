@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 const port = 443;
-var cors = require("cors");
-app.use(cors());
 const https = require("https");
 const fs = require("fs");
 https
@@ -46,7 +44,8 @@ app.use(
     cookie: { secure: true },
   })
 );
-
+var cors = require("cors");
+app.use(cors({ credentials: true, origin: "https://alkatra.com" }));
 const isAuth = require("./middleware/isAuth");
 const isNotAuth = require("./middleware/isNotAuth");
 var Client = require("./models/client");
