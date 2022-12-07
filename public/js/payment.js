@@ -1,4 +1,4 @@
-const IP = "alkatra.com";
+const IP = "www.alkatra.com";
 
 function postTokenisedCard(tokenisedCard) {
   fetch("https://" + IP + "/api/payment/token/" + id, {

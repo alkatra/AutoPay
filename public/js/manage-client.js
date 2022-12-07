@@ -1,5 +1,5 @@
 const id = window.location.href.split("/").pop();
-const IP = "alkatra.com";
+const IP = "www.alkatra.com";
 
 let paymentsG = [];
 let clientID = "";

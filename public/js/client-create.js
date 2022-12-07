@@ -1,5 +1,5 @@
 let schedules = 1;
-const IP = "alkatra.com";
+const IP = "www.alkatra.com";
 function addClientRedirect() {
   const name = document.getElementById("name").value;
   const number = document.getElementById("number").value;
