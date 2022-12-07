@@ -24,6 +24,7 @@ function login() {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "https://www.alkatra.com",
     },
     body: JSON.stringify({ username: username, password: password }),
   }).then((response) => {
