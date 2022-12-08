@@ -1,5 +1,5 @@
 const IP = "www.alkatra.com";
-
+let paymentList = [];
 async function loadPayments() {
   let results = await fetch("https://" + IP + "/api/payment/logs");
   paymentList = await results.json();
@@ -24,17 +24,15 @@ async function loadPayments() {
         e.gatewayResponseMessage +
         "</span></td><td>" +
         new Date(e.createdAt).toISOString().substring(0, 10) +
-        "</td><td><button class='button is-danger' onclick='refund(" +
-        e.orderId +
-        `, "${e.clientID}", "${e.paymentID}")'>Refund</button></td></tr>`;
+        `</td><td><button class='button is-danger' onclick='refund(${i})'>Refund</button></td></tr>`;
     });
     string += "</tbody></table>";
     document.getElementById("paymentlist").innerHTML = string;
   }
 }
 
-function refund(i, a, x) {
-  console.log(i, a, x);
+function refund(i) {
+  console.log(paymentList[i].amount);
 }
 
 window.onload = function () {
