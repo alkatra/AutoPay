@@ -54,7 +54,7 @@ async function getToken() {
   }
 }
 
-router.get("/paymentlogs/", isAuth, async function (req, res) {
+router.get("/logs/", isAuth, async function (req, res) {
   try {
     let merchantID = await getUserID(req.session.username);
     let response = await Client.find(
@@ -62,8 +62,8 @@ router.get("/paymentlogs/", isAuth, async function (req, res) {
       "payments.paymentHistory name"
     );
     let payments = [];
-    response.forEach((e, responseIndex) => {
-      e.payments.forEach((e, i) => {
+    response.forEach((response, responseIndex) => {
+      response.payments.forEach((e, i) => {
         e.paymentHistory.forEach((paymentLog) => {
           payments.push({
             name: response[responseIndex].name,
@@ -72,6 +72,8 @@ router.get("/paymentlogs/", isAuth, async function (req, res) {
             gatewayResponseMessage: paymentLog.gatewayResponseMessage,
             ip: paymentLog.ip,
             orderId: paymentLog.orderId,
+            paymentID: paymentLog._id,
+            clientID: response[responseIndex]._id,
           });
         });
       });
@@ -81,6 +83,38 @@ router.get("/paymentlogs/", isAuth, async function (req, res) {
     logger.log(e);
     res.status(500).send(e);
   }
+});
+
+router.delete("/", isAuth, async function (req, res) {
+  //https://payments-stest.npe.auspost.zone/v2/orders/{orderId}/refunds
+  let response = await fetch(
+    "https://payments-stest.npe.auspost.zone/v2/orders/" +
+      req.body.orderId +
+      "/refunds",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + (await getToken()),
+      },
+      body: JSON.stringify({
+        merchantCode: "5AR0055",
+        ip: req.body.ip,
+        amount: req.body.amount,
+      }),
+    }
+  );
+  logger.log(
+    "$" + req.body.amount + " has been refunded for: " + req.body.clientID
+  );
+  await Client.findOneAndUpdate(
+    { _id: req.body.clientID, "payments._id": req.body.paymentID },
+    {
+      $push: { "payments.$.paymentHistory": paymentJSON },
+      $inc: { totalSuccess: payment.amount * -1 },
+    }
+  );
 });
 
 router.get("/paymentinformation/:id", async function (req, res) {
@@ -169,7 +203,7 @@ router.post("/token/:id", async function (req, res) {
   }
 });
 
-router.post("/schedule", async function (req, res) {
+router.post("/schedule", isAuth, async function (req, res) {
   try {
     console.log(req.body);
     let r = await Client.updateOne(
@@ -185,7 +219,7 @@ router.post("/schedule", async function (req, res) {
   }
 });
 
-router.post("/changedate", async function (req, res) {
+router.post("/changedate", isAuth, async function (req, res) {
   try {
     // if (hasDatePassed(Date.parse(new Date()), Date.parse(req.body.newDate))) {
     //   res.status(400).send({ message: "Error" });
@@ -208,7 +242,7 @@ router.post("/changedate", async function (req, res) {
   }
 });
 
-router.post("/changeamount", async function (req, res) {
+router.post("/changeamount", isAuth, async function (req, res) {
   try {
     let r = await Client.findOneAndUpdate(
       { _id: req.body.clientID, "payments._id": req.body.paymentID },
@@ -225,7 +259,7 @@ router.post("/changeamount", async function (req, res) {
   }
 });
 
-router.post("/stoppayments", async function (req, res) {
+router.post("/stoppayments", isAuth, async function (req, res) {
   try {
     await Client.findOneAndUpdate(
       { _id: req.body.clientID, "payments._id": req.body.paymentID },
