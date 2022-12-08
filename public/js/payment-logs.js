@@ -20,9 +20,9 @@ async function loadPayments() {
           e.gatewayResponseMessage == "Transaction successful"
             ? "success"
             : "danger"
-        }'` +
+        }'>` +
         e.gatewayResponseMessage +
-        "</td><td>" +
+        "</span></td><td>" +
         new Date(e.createdAt).toISOString().substring(0, 10) +
         "</td><td><button class='button is-danger' onclick='refund(" +
         i +
