@@ -14,22 +14,22 @@ async function loadPayments() {
     paymentList.forEach((e, i) => {
       string +=
         "<tr><td>" +
-          e.name +
-          "</td><td>$" +
-          e.amount / 100 +
-          `</td><td><span class='tag is-${
-            e.gatewayResponseMessage == "Transaction successful"
-              ? "success"
-              : "danger"
-          }'>` +
-          e.gatewayResponseMessage +
-          "</span></td><td>" +
-          new Date(e.createdAt).toISOString().substring(0, 10) +
-          `</td><td>` +
-          e.gatewayResponseMessage ==
-        "Transaction successful"
-          ? `<button class='button is-danger' onclick='refund(${i})'>Refund</button>`
-          : "" + `</td></tr>`;
+        e.name +
+        "</td><td>$" +
+        e.amount / 100 +
+        `</td><td><span class='tag is-${
+          e.gatewayResponseMessage == "Transaction successful"
+            ? "success"
+            : "danger"
+        }'>` +
+        e.gatewayResponseMessage +
+        "</span></td><td>" +
+        new Date(e.createdAt).toISOString().substring(0, 10) +
+        `</td><td> ${
+          e.gatewayResponseMessage == "Transaction successful"
+            ? `<button class='button is-danger' onclick='refund(${i})'>Refund</button>`
+            : ""
+        } </td></tr>`;
     });
     string += "</tbody></table>";
     document.getElementById("paymentlist").innerHTML = string;
