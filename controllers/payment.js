@@ -59,7 +59,7 @@ router.get("/logs/", isAuth, async function (req, res) {
     let merchantID = await getUserID(req.session.username);
     let response = await Client.find(
       { merchantID: merchantID },
-      "payments.paymentHistory name"
+      "payments.paymentHistory name payments._id"
     );
     let payments = [];
     response.forEach((e, responseIndex) => {
