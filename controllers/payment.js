@@ -6,9 +6,10 @@ var Token = require("../models/token");
 var Client = require("../models/client");
 const schedule = require("node-schedule");
 const isAuth = require("../middleware/isAuth");
+const isAdmin = require("../middleware/isAdmin");
 const rule = new schedule.RecurrenceRule();
-rule.hour = 3;
-rule.minute = 50;
+rule.hour = 1;
+rule.minute = 10;
 schedule.scheduleJob(rule, function () {
   logger.log("Scheduler activated.");
   takePendingPayments();
@@ -291,7 +292,7 @@ router.post("/stoppayments", isAuth, async function (req, res) {
   }
 });
 
-router.get("/test", isAuth, async function (req, res) {
+router.get("/test", isAdmin, async function (req, res) {
   await Client.updateOne(
     {
       _id: "638def737975dd1f0f235d29",

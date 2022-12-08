@@ -3,15 +3,9 @@ const IP = "www.alkatra.com";
 
 var curUser = JSON.parse(localStorage.getItem("curUser")) || "";
 
-var rooms = [];
-
-$("#signup-redirect").on("click", () => {
-  location.href = "/signup";
-});
-
 function invalidDetails() {
-  $("#user-not-found").append(`
-      <div class='alert alert-danger' role='alert'>User details incorrect/nonexistent, try again.</div>`);
+  document.getElementById("user-not-found").innerHTML = `
+      <span class='tag is-danger' role='alert'>User details incorrect/nonexistent, try again.</div>`;
 }
 
 function login() {
@@ -28,7 +22,10 @@ function login() {
     },
     body: JSON.stringify({ username: username, password: password }),
   }).then((response) => {
-    console.log(response);
-    location.reload();
+    if (response.status == 200) {
+      location.reload();
+    } else {
+      invalidDetails();
+    }
   });
 }

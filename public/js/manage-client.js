@@ -95,7 +95,7 @@ fetch("https://" + IP + "/api/client/" + id)
               </span><br/><br/> 
               <div id="dateinput${i}">${
             e.timesRecurringLeft != 0
-              ? `<div class="buttons"><button class="button is-info is-small" onclick="changeDate(${i})">Change Date of next Payment</button>
+              ? `<div class="buttons"><button class="button is-link is-small" onclick="changeDate(${i})">Change Date of next Payment</button>
               <button class="button is-link is-small" onclick="changeAmount(${i})">Change Amount of next Payment</button>
               <button class="button is-danger is-small" onclick="stopPayments(${i})">Stop further payments</button></div>`
               : ""
