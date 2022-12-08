@@ -106,6 +106,7 @@ router.delete("/", isAuth, async function (req, res) {
         }),
       }
     );
+    let paymentJSON = await response.json();
     logger.log(
       "$" + req.body.amount + " has been refunded for: " + req.body.clientID
     );
