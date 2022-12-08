@@ -64,18 +64,20 @@ router.get("/logs/", isAuth, async function (req, res) {
     let payments = [];
     response.forEach((x, responseIndex) => {
       x.payments.forEach((e, i) => {
-        e.paymentHistory.forEach((paymentLog) => {
-          payments.push({
-            name: x[responseIndex].name,
-            createdAt: paymentLog.createdAt,
-            amount: paymentLog.amount,
-            gatewayResponseMessage: paymentLog.gatewayResponseMessage,
-            ip: paymentLog.ip,
-            orderId: paymentLog.orderId,
-            paymentID: paymentLog._id,
-            clientID: x[responseIndex]._id,
-          });
-        });
+        console.log(x);
+
+        // e.paymentHistory.forEach((paymentLog) => {
+        //   payments.push({
+        //     name: x[responseIndex].name,
+        //     createdAt: paymentLog.createdAt,
+        //     amount: paymentLog.amount,
+        //     gatewayResponseMessage: paymentLog.gatewayResponseMessage,
+        //     ip: paymentLog.ip,
+        //     orderId: paymentLog.orderId,
+        //     paymentID: paymentLog._id,
+        //     clientID: x[responseIndex]._id,
+        //   });
+        // });
       });
     });
     res.status(200).send(payments);
