@@ -61,7 +61,6 @@ router.get("/logs/", isAuth, async function (req, res) {
       { merchantID: merchantID },
       "payments.paymentHistory name"
     );
-    res.send(response);
     let payments = [];
     response.forEach((x, responseIndex) => {
       x.payments.forEach((e, i) => {
