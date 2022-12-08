@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 var User = require("../models/user");
 var Token = require("../models/token");
+var Logs = require("../models/log");
+
 const logger = require("../functions/logger");
 var Client = require("../models/client");
 const bcrypt = require("bcrypt");
@@ -70,6 +72,7 @@ router.get("/deletetest", isAuth, async function (req, res) {
   testUser.username = "sagar";
   testUser.password = await bcrypt.hash("password", 10);
   await testUser.save();
+  await Logs.deleteMany({});
   // await User.findOneAndUpdate({ username: "sagar" }, { $set: { clients: [] } });
   // let results = await User.find();
   // let results = await Token.find();

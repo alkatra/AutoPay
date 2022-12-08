@@ -110,7 +110,10 @@ router.delete("/", isAuth, async function (req, res) {
     if (paymentJSON.gatewayResponseCode === "00") {
       paymentJSON.gatewayResponseMessage = "Refund Successful";
       logger.log(
-        "$" + req.body.amount + " has been refunded for: " + req.body.clientID
+        "$" +
+          req.body.amount / 100 +
+          " has been refunded for: " +
+          req.body.clientID
       );
       await Client.findOneAndUpdate(
         { _id: req.body.clientID, "payments._id": req.body.paymentID },
