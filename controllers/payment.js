@@ -114,7 +114,7 @@ router.delete("/", isAuth, async function (req, res) {
       { _id: req.body.clientID, "payments._id": req.body.paymentID },
       {
         $push: { "payments.$.paymentHistory": paymentJSON },
-        $inc: { totalSuccess: payment.amount * -1 },
+        $inc: { totalSuccess: req.body.amount * -1 },
       }
     );
     res.status(200).send({ message: "Successful" });
