@@ -16,7 +16,7 @@ async function loadPayments() {
         e.name +
         "</td><td>$" +
         e.amount / 100 +
-        `</td><td><span class='is-${
+        `</td><td><span class='tag is-${
           e.gatewayResponseMessage == "Transaction successful"
             ? "success"
             : "danger"
