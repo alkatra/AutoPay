@@ -57,11 +57,25 @@ async function getToken() {
 router.get("/paymentlogs/", isAuth, async function (req, res) {
   try {
     let merchantID = await getUserID(req.session.username);
-    let clients = await Client.find(
+    let response = await Client.find(
       { merchantID: merchantID },
       "payments.paymentHistory"
     );
-    res.send(clients);
+    let payments = [];
+    response.forEach((e, i) => {
+      e.payments.forEach((e, i) => {
+        e.paymentHistory.forEach((paymentLog) => {
+          payments.push({
+            createdAt: paymentLog.createdAt,
+            amount: paymentLog.amount,
+            gatewayResponseMessage: paymentLog.gatewayResponseMessage,
+            ip: paymentLog.ip,
+            orderId: paymentLog.orderId,
+          });
+        });
+      });
+    });
+    res.status(200).send(payments);
   } catch (e) {
     logger.log(e);
     res.status(500).send(e);
