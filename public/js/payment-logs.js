@@ -9,7 +9,7 @@ async function loadPayments() {
       "You don't have any payments yet.";
   } else {
     let string =
-      "<table class='table'><thead><tr><th>Name</th><th>Amount</th><th>Status</th><th>Refund</th></tr></thead><tbody>";
+      "<table class='table'><thead><tr><th>Name</th><th>Amount</th><th>Status</th><th>Date</th><th>Refund</th></tr></thead><tbody>";
     paymentList.forEach((e, i) => {
       string +=
         "<tr><td>" +
@@ -18,7 +18,9 @@ async function loadPayments() {
         e.amount / 100 +
         "</td><td>" +
         e.gatewayResponseMessage +
-        "</td><td><button class='button is-danger' onclick='refund(" +
+        "</td><td>" +
+        new Date(e.createdAt).toISOString().substring(0, 10);
+      "</td><td><button class='button is-danger' onclick='refund(" +
         i +
         ")'>Refund</button></td></tr>";
     });
