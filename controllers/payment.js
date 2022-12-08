@@ -54,6 +54,20 @@ async function getToken() {
   }
 }
 
+router.get("/paymentlogs/", isAuth, async function (req, res) {
+  try {
+    let merchantID = await getUserID(req.session.username);
+    let clients = await Client.find(
+      { merchantID: merchantID },
+      "payments.paymentHistory"
+    );
+    res.send(clients);
+  } catch (e) {
+    logger.log(e);
+    res.status(500).send(e);
+  }
+});
+
 router.get("/paymentinformation/:id", async function (req, res) {
   try {
     let response = await Client.findOne(
@@ -294,6 +308,7 @@ function hasDatePassed(currentDate, lastDate) {
   if (daysPassed >= 0) return true;
   return false;
 }
+
 async function takePayment(clientID, index) {
   let client = await Client.findOne({ _id: clientID });
   if (client.paymentToken == "")
