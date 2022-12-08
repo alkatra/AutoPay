@@ -87,34 +87,40 @@ router.get("/logs/", isAuth, async function (req, res) {
 
 router.delete("/", isAuth, async function (req, res) {
   //https://payments-stest.npe.auspost.zone/v2/orders/{orderId}/refunds
-  let response = await fetch(
-    "https://payments-stest.npe.auspost.zone/v2/orders/" +
-      req.body.orderId +
-      "/refunds",
-    {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + (await getToken()),
-      },
-      body: JSON.stringify({
-        merchantCode: "5AR0055",
-        ip: req.body.ip,
-        amount: req.body.amount,
-      }),
-    }
-  );
-  logger.log(
-    "$" + req.body.amount + " has been refunded for: " + req.body.clientID
-  );
-  await Client.findOneAndUpdate(
-    { _id: req.body.clientID, "payments._id": req.body.paymentID },
-    {
-      $push: { "payments.$.paymentHistory": paymentJSON },
-      $inc: { totalSuccess: payment.amount * -1 },
-    }
-  );
+  try {
+    let response = await fetch(
+      "https://payments-stest.npe.auspost.zone/v2/orders/" +
+        req.body.orderId +
+        "/refunds",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + (await getToken()),
+        },
+        body: JSON.stringify({
+          merchantCode: "5AR0055",
+          ip: req.body.ip,
+          amount: req.body.amount,
+        }),
+      }
+    );
+    logger.log(
+      "$" + req.body.amount + " has been refunded for: " + req.body.clientID
+    );
+    await Client.findOneAndUpdate(
+      { _id: req.body.clientID, "payments._id": req.body.paymentID },
+      {
+        $push: { "payments.$.paymentHistory": paymentJSON },
+        $inc: { totalSuccess: payment.amount * -1 },
+      }
+    );
+    res.status(200).send({ message: "Successful" });
+  } catch (e) {
+    logger.log(e);
+    res.status(500).send(e);
+  }
 });
 
 router.get("/paymentinformation/:id", async function (req, res) {

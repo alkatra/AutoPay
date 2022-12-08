@@ -1,5 +1,6 @@
 const IP = "www.alkatra.com";
 let paymentList = [];
+
 async function loadPayments() {
   let results = await fetch("https://" + IP + "/api/payment/logs");
   paymentList = await results.json();
@@ -31,14 +32,23 @@ async function loadPayments() {
   }
 }
 
-function refund(i) {
-  console.log(
-    paymentList[i].orderId,
-    paymentList[i].ip,
-    paymentList[i].amount,
-    paymentList[i].clientID,
-    paymentList[i].paymentID
-  );
+async function refund(i) {
+  let response = await fetch("https://" + IP + "/api/payment/", {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      orderId: paymentList[i].orderId,
+      ip: paymentList[i].ip,
+      amount: paymentList[i].amount,
+      clientID: paymentList[i].clientID,
+      paymentID: paymentList[i].paymentID,
+    }),
+  });
+  console.log(response);
+  location.reload();
 }
 
 window.onload = function () {
