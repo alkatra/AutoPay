@@ -7,7 +7,7 @@ const schedule = require("node-schedule");
 const isAuth = require("../middleware/isAuth");
 const rule = new schedule.RecurrenceRule();
 rule.hour = 3;
-rule.minute = 46;
+rule.minute = 50;
 schedule.scheduleJob(rule, function () {
   console.log("SCHEDULER WORKING");
   takePendingPayments();
@@ -240,7 +240,7 @@ async function takePendingPayments() {
   clients.forEach((client) => {
     if (client.paymentToken != "") {
       client.payments.forEach(async (payment, index) => {
-        if (!payment.lastPayment) {
+        if (!payment.lastPayment || payment.ignoreLastPayment) {
           if ((await takePayment(client._id, index)) == { message: "Success" })
             payments++;
         } else {
