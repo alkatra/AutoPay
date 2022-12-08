@@ -39,3 +39,7 @@ function manageClient(index) {
 function logout() {
   window.location.href = "/logout";
 }
+
+function paymentLogs() {
+  window.location.href = "/paymentlogs";
+}
