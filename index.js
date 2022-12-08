@@ -81,7 +81,7 @@ app.get("/logs", isAdmin, async (req, res) => {
   res.sendFile(`${base}/logs.html`);
 });
 
-router.get("/manylogs", isAdmin, async (req, res) => {
+app.get("/manylogs", isAdmin, async (req, res) => {
   res.send(await Logs.find({}).sort({ date: -1 }));
 });
 
