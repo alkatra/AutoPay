@@ -108,7 +108,7 @@ router.delete("/", isAuth, async function (req, res) {
     );
     let paymentJSON = await response.json();
     if (paymentJSON.gatewayResponseCode === "00") {
-      paymentJSON.gatewayResponseMessage = "Refunded.";
+      paymentJSON.gatewayResponseMessage = "Refund Successful";
       logger.log(
         "$" + req.body.amount + " has been refunded for: " + req.body.clientID
       );
