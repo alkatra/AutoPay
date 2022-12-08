@@ -401,7 +401,10 @@ async function takePayment(clientID, index) {
     amount: payment.amount,
   };
   logger.log(
-    "Payment attempted for: " + client.name + " for amount $" + payment.amount
+    "Payment attempted for: " +
+      client.name +
+      " for amount $" +
+      payment.amount / 100
   );
 
   let paymentResponse = await fetch(
