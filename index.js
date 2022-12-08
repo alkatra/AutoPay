@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const isAdmin = require("./middleware/isAdmin");
+
 const port = 443;
 const logger = require("./functions/logger");
 const Logs = require("./models/log");
