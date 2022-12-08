@@ -346,6 +346,9 @@ async function takePayment(clientID, index) {
     return;
   }
   if (paymentJSON.gatewayResponseMessage == "Transaction successful") {
+    logger.log(
+      client.name + " has successfully made payment of $" + payment.amount / 100
+    );
     if (payment.ignoreLastPayment) {
       await Client.updateOne(
         { _id: clientID, "payments._id": client.payments[index]._id },
