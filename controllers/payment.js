@@ -6,8 +6,8 @@ var Client = require("../models/client");
 const schedule = require("node-schedule");
 const isAuth = require("../middleware/isAuth");
 const rule = new schedule.RecurrenceRule();
-rule.hour = 5;
-rule.minute = 15;
+rule.hour = 3;
+rule.minute = 46;
 schedule.scheduleJob(rule, function () {
   console.log("SCHEDULER WORKING");
   takePendingPayments();
