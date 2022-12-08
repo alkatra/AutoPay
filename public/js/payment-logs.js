@@ -27,4 +27,8 @@ async function loadPayments() {
   }
 }
 
-loadPayments();
+function refund(i) {}
+
+window.onload = function () {
+  loadPayments();
+};
