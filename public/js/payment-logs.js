@@ -5,7 +5,7 @@ async function loadPayments() {
   paymentList = await results.json();
   console.log(json);
   if (paymentList.length == 0) {
-    document.getElementById("client-list").innerHTML =
+    document.getElementById("payment-list").innerHTML =
       "You don't have any payments yet.";
   } else {
     let string =
