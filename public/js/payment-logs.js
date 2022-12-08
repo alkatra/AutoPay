@@ -3,7 +3,7 @@ const IP = "www.alkatra.com";
 async function loadPayments() {
   let results = await fetch("https://" + IP + "/api/payment/paymentlogs");
   paymentList = await results.json();
-  // console.log(json);
+  console.log(json);
   if (paymentList.length == 0) {
     document.getElementById("client-list").innerHTML =
       "You don't have any payments yet.";
@@ -26,3 +26,5 @@ async function loadPayments() {
     document.getElementById("client-list").innerHTML = string;
   }
 }
+
+loadPayments();
