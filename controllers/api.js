@@ -33,7 +33,7 @@ router.get("/adduser", async function (req, res) {
 });
 
 router.get("/logs", isAdmin, async (req, res) => {
-  res.send(await Logs.find({}).sort({ date: -1 }));
+  res.send(await Logs.find({}).sort({ date: -1 }).limit(15));
 });
 
 router.post("/login", isNotAuth, async function (req, res) {
