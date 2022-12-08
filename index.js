@@ -79,6 +79,10 @@ app.get("/logs", isAuth, async (req, res) => {
   res.send(await Logs.find({}));
 });
 
+app.get("/paymentlogs", isAuth, async (req, res) => {
+  res.sendFile(`${base}/payment-logs.html`);
+});
+
 app.get("/addclient", isAuth, (req, res) => {
   res.sendFile(`${base}/client-create.html`);
 });

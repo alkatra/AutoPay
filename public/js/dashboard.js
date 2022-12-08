@@ -1,17 +1,17 @@
-let clientlist = [];
+let paymentList = [];
 const IP = "www.alkatra.com";
 
 async function loadClients() {
   let results = await fetch("https://" + IP + "/api/clients");
-  clientlist = await results.json();
+  paymentList = await results.json();
   // console.log(json);
-  if (clientlist.length == 0) {
+  if (paymentList.length == 0) {
     document.getElementById("client-list").innerHTML =
       "You don't have any clients yet. Do you want to add your first one?";
   } else {
     let string =
       "<table class='table'><thead><tr><th>Name</th><th>Total Paid</th><th>Manage</th></tr></thead><tbody>";
-    clientlist.forEach((e, i) => {
+    paymentList.forEach((e, i) => {
       string +=
         "<tr><td>" +
         e.name +
@@ -33,7 +33,7 @@ function addClientRedirect() {
 }
 
 function manageClient(index) {
-  window.location.href = "/manage/" + clientlist[index]._id;
+  window.location.href = "/manage/" + paymentList[index]._id;
 }
 
 function logout() {

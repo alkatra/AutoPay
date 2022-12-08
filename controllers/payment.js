@@ -59,13 +59,14 @@ router.get("/paymentlogs/", isAuth, async function (req, res) {
     let merchantID = await getUserID(req.session.username);
     let response = await Client.find(
       { merchantID: merchantID },
-      "payments.paymentHistory"
+      "payments.paymentHistory name"
     );
     let payments = [];
-    response.forEach((e, i) => {
+    response.forEach((e, responseIndex) => {
       e.payments.forEach((e, i) => {
         e.paymentHistory.forEach((paymentLog) => {
           payments.push({
+            name: response[responseIndex].name,
             createdAt: paymentLog.createdAt,
             amount: paymentLog.amount,
             gatewayResponseMessage: paymentLog.gatewayResponseMessage,
