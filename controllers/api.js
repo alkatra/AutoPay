@@ -64,15 +64,19 @@ router.post("/login", isNotAuth, async function (req, res) {
 });
 
 router.get("/deletetest", isAuth, async function (req, res) {
-  // await Client.deleteMany({ name: "John Doe" });
+  await Client.deleteMany({});
   // await Client.deleteOne({ name: "Jane Doe" });
   // await Client.deleteOne({ name: "Sourav" });
-  // await User.deleteMany({});
+  await User.deleteMany({});
   const testUser = new User();
-  testUser.username = "sneha";
-  testUser.password = await bcrypt.hash("ilovesagar", 10);
+  testUser.username = "shahina";
+  testUser.password = await bcrypt.hash("testpassword", 10);
   await testUser.save();
-  // await Logs.deleteMany({});
+  const x = new User();
+  x.username = "sagar";
+  x.password = await bcrypt.hash("password", 10);
+  await x.save();
+  await Logs.deleteMany({});
   // await User.findOneAndUpdate({ username: "sagar" }, { $set: { clients: [] } });
   // let results = await User.find();
   // let results = await Token.find();
