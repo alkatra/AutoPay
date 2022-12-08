@@ -23,7 +23,7 @@ async function loadPayments() {
         ")'>Refund</button></td></tr>";
     });
     string += "</tbody></table>";
-    document.getElementById("client-list").innerHTML = string;
+    document.getElementById("payment-list").innerHTML = string;
   }
 }
 
