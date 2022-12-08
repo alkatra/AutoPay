@@ -5,7 +5,7 @@ async function loadPayments() {
   paymentList = await results.json();
   console.log(paymentList);
   if (paymentList.length == 0) {
-    document.getElementById("payment-list").innerHTML =
+    document.getElementById("paymentlist").innerHTML =
       "You don't have any payments yet.";
   } else {
     let string =
@@ -23,7 +23,7 @@ async function loadPayments() {
         ")'>Refund</button></td></tr>";
     });
     string += "</tbody></table>";
-    document.getElementById("payment-list").innerHTML = string;
+    document.getElementById("paymentlist").innerHTML = string;
   }
 }
 
