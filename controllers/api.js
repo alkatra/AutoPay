@@ -85,10 +85,10 @@ router.get("/test", async function (req, res) {
   // await Client.deleteMany({ name: "John Doe" });
   // await Client.deleteOne({ name: "Jane Doe" });
   // await User.findOneAndUpdate({ username: "sagar" }, { $set: { clients: [] } });
-  // let results = await User.find();
+  let results = await User.find();
   // let results = await Token.find();
   // let results = await Token.deleteMany({});
-  let results = await Client.find();
+  // let results = await Client.find();
   res.send(results);
 });
 
