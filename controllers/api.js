@@ -32,7 +32,7 @@ router.get("/adduser", async function (req, res) {
   }
 });
 
-app.get("/logs", isAdmin, async (req, res) => {
+router.get("/logs", isAdmin, async (req, res) => {
   res.send(await Logs.find({}));
 });
 

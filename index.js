@@ -76,7 +76,7 @@ app.get("/dash", isAuth, (req, res) => {
 });
 
 app.get("/logs", isAdmin, async (req, res) => {
-  res.send(await Logs.find({}));
+  res.sendFile(`${base}/logs.html`);
 });
 
 app.get("/paymentlogs", isAuth, async (req, res) => {
