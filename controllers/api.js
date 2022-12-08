@@ -32,6 +32,10 @@ router.get("/adduser", async function (req, res) {
   }
 });
 
+app.get("/logs", isAdmin, async (req, res) => {
+  res.send(await Logs.find({}));
+});
+
 router.post("/login", isNotAuth, async function (req, res) {
   try {
     let response = await User.find({ username: req.body.username });
