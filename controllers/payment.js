@@ -107,9 +107,12 @@ router.delete("/", isAuth, async function (req, res) {
       }
     );
     let paymentJSON = await response.json();
-    logger.log(
-      "$" + req.body.amount + " has been refunded for: " + req.body.clientID
-    );
+    if (paymentJSON.gatewayResponseCode === "00") {
+      paymentJSON.gatewayResponseMessage = "Refunded.";
+      logger.log(
+        "$" + req.body.amount + " has been refunded for: " + req.body.clientID
+      );
+    }
     await Client.findOneAndUpdate(
       { _id: req.body.clientID, "payments._id": req.body.paymentID },
       {
