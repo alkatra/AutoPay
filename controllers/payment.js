@@ -10,7 +10,7 @@ const rule = new schedule.RecurrenceRule();
 rule.hour = 3;
 rule.minute = 50;
 schedule.scheduleJob(rule, function () {
-  console.log("SCHEDULER WORKING");
+  logger.log("Scheduler activated.");
   takePendingPayments();
 });
 
@@ -63,9 +63,8 @@ router.get("/logs/", isAuth, async function (req, res) {
     );
     let payments = [];
     response.forEach((e, responseIndex) => {
-      e.payments.forEach((e, i) => {
-        console.log(e);
-        e.paymentHistory.forEach((paymentLog) => {
+      e.payments.forEach((payment, i) => {
+        payment.paymentHistory.forEach((paymentLog) => {
           payments.push({
             name: response[responseIndex].name,
             createdAt: paymentLog.createdAt,
@@ -74,7 +73,7 @@ router.get("/logs/", isAuth, async function (req, res) {
             ip: paymentLog.ip,
             orderId: paymentLog.orderId,
             clientID: response[responseIndex]._id,
-            paymentID: paymentLog._id,
+            paymentID: payment._id,
           });
         });
       });
@@ -153,7 +152,6 @@ router.get("/paymentinformation/:id", async function (req, res) {
 });
 
 router.post("/token/:id", async function (req, res) {
-  console.log("Receiving");
   try {
     var result = await Client.findOne({ _id: req.params.id });
   } catch (e) {
@@ -206,12 +204,10 @@ router.post("/token/:id", async function (req, res) {
 
 router.post("/schedule", isAuth, async function (req, res) {
   try {
-    console.log(req.body);
     let r = await Client.updateOne(
       { _id: req.body.clientID },
       { $push: { payments: req.body.payment } }
     );
-    console.log(r);
     await takePendingPayments(req.body.clientID);
     res.status(200).send({ message: "Successful" });
   } catch (e) {
@@ -385,7 +381,12 @@ async function takePayment(clientID, index) {
     customerCode: client.customerCode,
     amount: payment.amount,
   };
-  console.log("PAYMENT UNDERWAY");
+  logger.log(
+    "Payment attempted for: " +
+      client.customerCode +
+      " for amount $" +
+      payment.amount
+  );
 
   let paymentResponse = await fetch(
     "https://payments-stest.npe.auspost.zone/v2/payments",
