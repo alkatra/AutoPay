@@ -16,38 +16,47 @@ async function getUserID(username) {
 }
 
 router.get("/adduser", async function (req, res) {
-  const testUser = new User();
-  testUser.username = "sagartest";
-  testUser.password = await bcrypt.hash("password", 10);
-  await testUser.save();
-  res.status(200).send("Done");
+  try {
+    const testUser = new User();
+    testUser.username = "sagartest";
+    testUser.password = await bcrypt.hash("password", 10);
+    await testUser.save();
+    res.status(200).send("Done");
+  } catch (e) {
+    logger.log(e);
+    res.status(404).send(e);
+  }
 });
 
 router.post("/login", isNotAuth, async function (req, res) {
-  console.log("Hhhh");
-  let response = await User.find({ username: req.body.username });
-  if (response.length == 0) {
-    res.status(404).send({
-      message: "Unable to find user.",
-    });
-  } else {
-    bcrypt.compare(
-      req.body.password,
-      response[0].password,
-      async function (err, resp) {
-        if (err) {
-          res.status(500).send({ message: "Server Error." });
+  try {
+    let response = await User.find({ username: req.body.username });
+    if (response.length == 0) {
+      res.status(404).send({
+        message: "Unable to find user.",
+      });
+    } else {
+      bcrypt.compare(
+        req.body.password,
+        response[0].password,
+        async function (err, resp) {
+          if (err) {
+            res.status(500).send({ message: "Server Error." });
+          }
+          if (resp) {
+            req.session.isAuth = true;
+            req.session.username = req.body.username;
+            logger.log(req.session.username + " has logged in.");
+            res.status(200).send("Success");
+          } else {
+            res.status(403).send({ message: "Incorrect Password." });
+          }
         }
-        if (resp) {
-          req.session.isAuth = true;
-          req.session.username = req.body.username;
-          console.log("Done.");
-          res.status(200).send("Success");
-        } else {
-          res.status(403).send({ message: "Incorrect Password." });
-        }
-      }
-    );
+      );
+    }
+  } catch (e) {
+    logger.log(e);
+    res.status(404).send(e);
   }
 });
 
@@ -74,13 +83,18 @@ router.get("/test", async function (req, res) {
 });
 
 router.get("/clients", isAuth, async function (req, res) {
-  let results = await Client.find(
-    {
-      merchantID: await getUserID(req.session.username),
-    },
-    "name totalSuccess"
-  );
-  res.send(results);
+  try {
+    let results = await Client.find(
+      {
+        merchantID: await getUserID(req.session.username),
+      },
+      "name totalSuccess"
+    );
+    res.send(results);
+  } catch (e) {
+    logger.log(e);
+    res.status(404).send(e);
+  }
   // res.send(["a", "b", "d"]);
 });
 
@@ -121,7 +135,7 @@ router.get("/client/:id", isAuth, async function (req, res) {
       res.status(400).send({ message: "Something went wrong" });
     }
   } catch (e) {
-    console.log(e);
+    logger.log(e);
     res.status(400).send({ message: "Something went wrong" });
   }
 });
@@ -146,6 +160,7 @@ router.post("/client", isAuth, async function (req, res) {
     );
     res.status(200).send({ link: "https://alkatra.com/payment/" + id });
   } catch (e) {
+    logger.log(e);
     res.status(500).send("Something went wrong.");
   }
 

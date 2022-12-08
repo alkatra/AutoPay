@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const logger = require("../functions/logger");
 var User = require("../models/user");
 var Token = require("../models/token");
 var Client = require("../models/client");
@@ -54,32 +55,37 @@ async function getToken() {
 }
 
 router.get("/paymentinformation/:id", async function (req, res) {
-  let response = await Client.findOne(
-    { _id: req.params.id },
-    "payments paymentToken name number itemName"
-  );
+  try {
+    let response = await Client.findOne(
+      { _id: req.params.id },
+      "payments paymentToken name number itemName"
+    );
 
-  if (response.paymentToken != "") {
-    res.status(400).send({ message: "Payment method already exists." });
-    return;
+    if (response.paymentToken != "") {
+      res.status(400).send({ message: "Payment method already exists." });
+      return;
+    }
+    let strings = [];
+    response.payments.forEach((e, i) => {
+      let string = "";
+      string = `$${e.amount / 100} ${
+        e.timesRecurringLeft < 0
+          ? "recurring until stopped "
+          : "recurring " + e.timesRecurringLeft + " times"
+      } starting at ${new Date(e.startDate).toISOString().substring(0, 10)}`;
+      strings.push(string);
+    });
+    let message = {
+      name: response.name,
+      number: response.number,
+      itemName: response.itemName,
+      paymentSchedules: strings,
+    };
+    res.status(200).send(message);
+  } catch (e) {
+    logger.log(e);
+    res.status(404).send(e);
   }
-  let strings = [];
-  response.payments.forEach((e, i) => {
-    let string = "";
-    string = `$${e.amount / 100} ${
-      e.timesRecurringLeft < 0
-        ? "recurring until stopped "
-        : "recurring " + e.timesRecurringLeft + " times"
-    } starting at ${new Date(e.startDate).toISOString().substring(0, 10)}`;
-    strings.push(string);
-  });
-  let message = {
-    name: response.name,
-    number: response.number,
-    itemName: response.itemName,
-    paymentSchedules: strings,
-  };
-  res.status(200).send(message);
 });
 
 router.post("/token/:id", async function (req, res) {
@@ -87,44 +93,50 @@ router.post("/token/:id", async function (req, res) {
   try {
     var result = await Client.findOne({ _id: req.params.id });
   } catch (e) {
+    logger.log(e);
     res.status(500).send({ message: "Something went wrong." });
   }
 
-  // get IP of client
-  const array = req.ip.split(":");
-  const remoteIP = array[array.length - 1];
-  // Check if payment Token exists for user.
-  if (result.paymentToken == "") {
-    // Get Payment Token
-    let response = await fetch(
-      "https://payments-stest.npe.auspost.zone/v2/customers/" +
-        result.customerCode +
-        "/payment-instruments/token",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + (await getToken()),
-          token: req.body.token,
-          ip: remoteIP,
-        },
-        body: JSON.stringify({}),
-      }
-    );
-    if (response.status == 200 || response.status == 201) {
-      let js = await response.json();
-
-      await Client.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: { paymentToken: js.token } }
+  try {
+    // get IP of client
+    const array = req.ip.split(":");
+    const remoteIP = array[array.length - 1];
+    // Check if payment Token exists for user.
+    if (result.paymentToken == "") {
+      // Get Payment Token
+      let response = await fetch(
+        "https://payments-stest.npe.auspost.zone/v2/customers/" +
+          result.customerCode +
+          "/payment-instruments/token",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + (await getToken()),
+            token: req.body.token,
+            ip: remoteIP,
+          },
+          body: JSON.stringify({}),
+        }
       );
+      if (response.status == 200 || response.status == 201) {
+        let js = await response.json();
 
-      await takePendingPayments(req.params.id);
-      res.status(200).send({ message: "Success" });
+        await Client.findOneAndUpdate(
+          { _id: req.params.id },
+          { $set: { paymentToken: js.token } }
+        );
+
+        await takePendingPayments(req.params.id);
+        res.status(200).send({ message: "Success" });
+      }
+    } else {
+      res.status(500).send({ message: "Error with code: " + response.status });
     }
-  } else {
-    res.status(500).send({ message: "Error with code: " + response.status });
+  } catch (e) {
+    logger.log(e);
+    res.status(404).send(e);
   }
 });
 
@@ -139,7 +151,7 @@ router.post("/schedule", async function (req, res) {
     await takePendingPayments(req.body.clientID);
     res.status(200).send({ message: "Successful" });
   } catch (e) {
-    console.log(e);
+    logger.log(e);
     res.status(500).send({ message: "Something went wrong." });
   }
 });
@@ -162,6 +174,7 @@ router.post("/changedate", async function (req, res) {
     await takePendingPayments(req.body.clientID);
     res.status(200).send({ message: "Successful" });
   } catch (e) {
+    logger.log(e);
     res.status(500).send({ message: "Something went wrong." });
   }
 });
@@ -178,7 +191,7 @@ router.post("/changeamount", async function (req, res) {
     );
     res.status(200).send({ message: "Successful" });
   } catch (e) {
-    console.log(e);
+    logger.log(e);
     res.status(500).send({ message: "Something went wrong." });
   }
 });
@@ -195,6 +208,7 @@ router.post("/stoppayments", async function (req, res) {
     );
     res.status(200).send({ message: "Successful" });
   } catch (e) {
+    logger.log(e);
     res.status(500).send({ message: "Something went wrong." });
   }
 });

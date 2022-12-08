@@ -72,7 +72,6 @@ app.get("/", isNotAuth, (req, res) => {
 });
 
 app.get("/dash", isAuth, (req, res) => {
-  logger.log(req.session.username + " has accessed dashboard.");
   res.sendFile(`${base}/dashboard.html`);
 });
 
@@ -88,7 +87,7 @@ app.get("/payment/:id", async (req, res) => {
   try {
     var result = await Client.findOne({ _id: req.params.id });
   } catch (e) {
-    await logger.log(e);
+    logger.log(e);
     res.status(404).send({ message: "Broken link." });
     return;
   }
@@ -105,6 +104,7 @@ app.get("/manage/:id", isAuth, async (req, res) => {
   try {
     var result = await Client.findOne({ _id: req.params.id });
   } catch (e) {
+    logger.log(e);
     res.status(404).send({ message: "Broken link." });
     return;
   }
@@ -112,15 +112,20 @@ app.get("/manage/:id", isAuth, async (req, res) => {
     res.status(404).send({ message: "User does not exist." });
     return;
   }
-  let merchantID = result.merchantID;
-  let userID = await getUserID(req.session.username);
-  // console.log(merchantID, userID);
-  if (!result) {
-    res.status(404).send({ message: "User does not exist." });
-  } else if (userID == merchantID) {
-    res.sendFile(`${base}/manage-client.html`);
-  } else {
-    res.status(400).send({ message: "Access Denied." });
+  try {
+    let merchantID = result.merchantID;
+    let userID = await getUserID(req.session.username);
+    // console.log(merchantID, userID);
+    if (!result) {
+      res.status(404).send({ message: "User does not exist." });
+    } else if (userID == merchantID) {
+      res.sendFile(`${base}/manage-client.html`);
+    } else {
+      res.status(400).send({ message: "Access Denied." });
+    }
+  } catch (e) {
+    logger.log(e);
+    res.status(404).send(e);
   }
 });
 
@@ -128,30 +133,41 @@ app.get("/schedule/:id", isAuth, async (req, res) => {
   try {
     var result = await Client.findOne({ _id: req.params.id });
   } catch (e) {
+    logger.log(e);
     res.status(404).send({ message: "Broken link." });
     return;
   }
-  if (!result) {
-    res.status(404).send({ message: "User does not exist." });
-    return;
-  }
-  let merchantID = result.merchantID;
-  let userID = await getUserID(req.session.username);
-  // console.log(merchantID, userID);
-  if (!result) {
-    res.status(404).send({ message: "User does not exist." });
-  } else if (userID == merchantID) {
-    res.sendFile(`${base}/schedule-create.html`);
-  } else {
-    res.status(400).send({ message: "Access Denied." });
+  try {
+    if (!result) {
+      res.status(404).send({ message: "User does not exist." });
+      return;
+    }
+    let merchantID = result.merchantID;
+    let userID = await getUserID(req.session.username);
+    // console.log(merchantID, userID);
+    if (!result) {
+      res.status(404).send({ message: "User does not exist." });
+    } else if (userID == merchantID) {
+      res.sendFile(`${base}/schedule-create.html`);
+    } else {
+      res.status(400).send({ message: "Access Denied." });
+    }
+  } catch (e) {
+    logger.log(e);
+    res.status(404).send(e);
   }
 });
 
 app.get("/logout", isAuth, (req, res) => {
-  req.session.destroy((e) => {
-    if (e) res.status(500).send({ message: "Server Error" });
-    res.status(200).redirect("/");
-  });
+  try {
+    req.session.destroy((e) => {
+      if (e) res.status(500).send({ message: "Server Error" });
+      res.status(200).redirect("/");
+    });
+  } catch (e) {
+    logger.log(e);
+    res.status(404).send(e);
+  }
 });
 
 async function getUserID(username) {
