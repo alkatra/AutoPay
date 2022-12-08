@@ -1,6 +1,5 @@
 const Log = require("../models/log");
-
-module.export = async function log(message) {
+exports.log = async function log(message) {
   let log = new Log();
   log.message = message;
   log.date = new Date();
