@@ -64,8 +64,8 @@ router.get("/logs/", isAuth, async function (req, res) {
     let payments = [];
     response.forEach((e, responseIndex) => {
       e.payments.forEach((e, i) => {
+        console.log(e);
         e.paymentHistory.forEach((paymentLog) => {
-          console.log(paymentLog);
           payments.push({
             name: response[responseIndex].name,
             createdAt: paymentLog.createdAt,
