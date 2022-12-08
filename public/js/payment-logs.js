@@ -16,7 +16,11 @@ async function loadPayments() {
         e.name +
         "</td><td>$" +
         e.amount / 100 +
-        "</td><td>" +
+        `</td><td><span class='is-${
+          e.gatewayResponseMessage == "Transaction successful"
+            ? "success"
+            : "danger"
+        }'` +
         e.gatewayResponseMessage +
         "</td><td>" +
         new Date(e.createdAt).toISOString().substring(0, 10) +
