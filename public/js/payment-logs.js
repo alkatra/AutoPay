@@ -32,7 +32,13 @@ async function loadPayments() {
 }
 
 function refund(i) {
-  console.log(paymentList[i].amount);
+  console.log(
+    paymentList[i].orderId,
+    paymentList[i].ip,
+    paymentList[i].amount,
+    paymentList[i].clientID,
+    paymentList[i].paymentID
+  );
 }
 
 window.onload = function () {
