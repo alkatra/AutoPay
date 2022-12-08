@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const port = 443;
+const logger = require("./functions/logger");
+const Logs = require("./models/log");
 const https = require("https");
 const fs = require("fs");
 https
@@ -70,7 +72,12 @@ app.get("/", isNotAuth, (req, res) => {
 });
 
 app.get("/dash", isAuth, (req, res) => {
+  logger.log(req.session.username + " has accessed dashboard.");
   res.sendFile(`${base}/dashboard.html`);
+});
+
+app.get("/logs", isAuth, async (req, res) => {
+  res.send(await Logs.find({}));
 });
 
 app.get("/addclient", isAuth, (req, res) => {
@@ -81,6 +88,7 @@ app.get("/payment/:id", async (req, res) => {
   try {
     var result = await Client.findOne({ _id: req.params.id });
   } catch (e) {
+    await logger.log(e);
     res.status(404).send({ message: "Broken link." });
     return;
   }
