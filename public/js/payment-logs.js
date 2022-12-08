@@ -19,8 +19,8 @@ async function loadPayments() {
         "</td><td>" +
         e.gatewayResponseMessage +
         "</td><td>" +
-        new Date(e.createdAt).toISOString().substring(0, 10);
-      "</td><td><button class='button is-danger' onclick='refund(" +
+        new Date(e.createdAt).toISOString().substring(0, 10) +
+        "</td><td><button class='button is-danger' onclick='refund(" +
         i +
         ")'>Refund</button></td></tr>";
     });
