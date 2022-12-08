@@ -112,12 +112,17 @@ router.delete("/", isAuth, async function (req, res) {
       logger.log(
         "$" + req.body.amount + " has been refunded for: " + req.body.clientID
       );
+      await Client.findOneAndUpdate(
+        { _id: req.body.clientID, "payments._id": req.body.paymentID },
+        {
+          $inc: { totalSuccess: req.body.amount * -1 },
+        }
+      );
     }
     await Client.findOneAndUpdate(
       { _id: req.body.clientID, "payments._id": req.body.paymentID },
       {
         $push: { "payments.$.paymentHistory": paymentJSON },
-        $inc: { totalSuccess: req.body.amount * -1 },
       }
     );
     res.status(200).send({ message: "Successful" });
