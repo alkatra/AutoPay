@@ -7,7 +7,7 @@ async function loadPayments() {
   console.log(paymentList);
   if (paymentList.length == 0) {
     document.getElementById("loglist").innerHTML =
-      "You don't have any payments yet.";
+      "You don't have any logs yet.";
   } else {
     let string =
       "<table class='table'><thead><tr><th>Name</th><th>Date</th></tr></thead><tbody>";
@@ -20,7 +20,7 @@ async function loadPayments() {
         `</td></tr>`;
     });
     string += "</tbody></table>";
-    document.getElementById("paymentlist").innerHTML = string;
+    document.getElementById("loglist").innerHTML = string;
   }
 }
 
