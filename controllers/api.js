@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 var User = require("../models/user");
 var Token = require("../models/token");
+const logger = require("../functions/logger");
 var Client = require("../models/client");
 const bcrypt = require("bcrypt");
 const isAuth = require("../middleware/isAuth");
