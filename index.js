@@ -65,8 +65,8 @@ app.use(function (req, res, next) {
   next();
 });
 app.use(cookieParser());
-
-const API = require("./controllers/api.js");
+app.use(express.favicon(`${base}/favicon.ico`)));
+const API = require(`./controllers/api.js`);
 app.use("/api", API);
 
 app.get("/", isNotAuth, (req, res) => {
