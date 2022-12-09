@@ -15,7 +15,7 @@ function postTokenisedCard(tokenisedCard) {
       if (response.message == "Success") {
         document.getElementById(
           "add-here"
-        ).innerHTML = `<span class="is-success">Card Successfully Saved.</span><br/>You may close this window now.`;
+        ).innerHTML = `<span class="tag is-success">Card Successfully Saved.</span><br/>You may close this window now.`;
       }
     });
 }
