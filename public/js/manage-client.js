@@ -39,7 +39,8 @@ fetch("https://" + IP + "/api/client/" + id)
       <b>Service Offered: </b> ${response.itemName} <br/>
       <b>Phone Number: </b> ${response.number}
 
-      </div></div>      <br/><div style="text-align: center;"><button class="button is-link is-center" onclick="addSchedule()">Add another Schedule</button></div></div>`;
+      </div></div>      </div>`;
+      //<br/><div style="text-align: center;"><button class="button is-link is-center" onclick="addSchedule()">Add another Schedule</button></div>
       if (response.payments == undefined) {
         console.log("ERROR");
       } else {

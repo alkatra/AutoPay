@@ -94,15 +94,19 @@ router.get("/cleandb", isAdmin, async function (req, res) {
   }
 });
 
-router.get("/test", async function (req, res) {
+router.get("/test", isAdmin, async function (req, res) {
   // await Client.deleteMany({ name: "John Doe" });
   // await Client.deleteOne({ name: "Jane Doe" });
   // await User.findOneAndUpdate({ username: "sagar" }, { $set: { clients: [] } });
-  let results = await User.find();
+  const x = new User();
+  x.username = "securepayTest";
+  x.password = await bcrypt.hash("&DNxqB&yaunPErx3", 10);
+  await x.save();
+  // let results = await User.find();
   // let results = await Token.find();
   // let results = await Token.deleteMany({});
   // let results = await Client.find();
-  res.send(results);
+  res.send("Done");
 });
 
 router.get("/clients", isAuth, async function (req, res) {
