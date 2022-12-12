@@ -36,6 +36,10 @@ router.get("/logs", isAdmin, async (req, res) => {
   res.send(await Logs.find({}).sort({ date: -1 }).limit(15));
 });
 
+router.get("/manylogs", isAdmin, async (req, res) => {
+  res.send(await Logs.find({}).sort({ date: -1 }));
+});
+
 router.post("/login", isNotAuth, async function (req, res) {
   try {
     let response = await User.find({ username: req.body.username });
