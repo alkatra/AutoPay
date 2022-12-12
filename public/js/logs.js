@@ -1,6 +1,10 @@
 const IP = "www.alkatra.com";
 let paymentList = [];
 
+function loadAll() {
+  loadPayments("manylogs");
+}
+
 async function loadPayments(param) {
   let results = await fetch("https://" + IP + "/api/" + param);
   paymentList = await results.json();
