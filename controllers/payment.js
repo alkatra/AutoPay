@@ -430,7 +430,11 @@ async function takePayment(clientID, index) {
   } catch (e) {
     return;
   }
-  if (paymentJSON.gatewayResponseCode === "00") {
+  if (
+    paymentJSON.gatewayResponseCode === "00" ||
+    paymentJSON.gatewayResponseCode === "77" ||
+    paymentJSON.gatewayResponseCode === "08"
+  ) {
     logger.log(
       client.name + " has successfully made payment of $" + payment.amount / 100
     );

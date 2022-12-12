@@ -69,6 +69,8 @@ var favicon = require("serve-favicon");
 app.use(favicon(`${base}/favicon.ico`));
 const API = require(`./controllers/api.js`);
 app.use("/api", API);
+const adminAPI = require(`./controllers/admin.js`);
+app.use("/admin", adminAPI);
 
 app.get("/", isNotAuth, (req, res) => {
   res.sendFile(`${base}/login.html`);

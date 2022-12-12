@@ -190,23 +190,6 @@ router.post("/client", isAuth, async function (req, res) {
     logger.log(e);
     res.status(500).send("Something went wrong.");
   }
-
-  // number: Number,
-  //     itemName: String,
-  //     bondAmount: Number,
-  //     weeklyRent: Number,
-  //     startDate: Date,
-  //     payments: Array,
-});
-
-// payment related
-
-router.get("/testSchedule", isAuth, async function (req, res) {
-  res.send("scheduled");
-});
-
-router.get("/endSchedule", isAuth, async function (req, res) {
-  res.send("ended schedule");
 });
 
 module.exports = router;

@@ -25,7 +25,7 @@ height: 100%;
           <div id="add-here"></div><br/>
           <form onsubmit="return false;">
             <div id="securepay-ui-container"></div>
-            <button class="button is-primary" onclick="mySecurePayUI.tokenise();">Submit</button>
+            <button class="button is-success" onclick="submitClicked();">Submit</button>
             <button class="button is-primary" onclick="mySecurePayUI.reset();">Reset</button>
           </form>
         </div>
@@ -57,12 +57,11 @@ height: 100%;
               // form validity has changed
             },
             onTokeniseSuccess: function(tokenisedCard) {
-              console.log(tokenisedCard)
               postTokenisedCard(tokenisedCard)
               // card was successfully tokenised or saved card was successfully retrieved 
             },
             onTokeniseError: function(errors) {
-              console.log(errors)
+              addError(errors);
             }
         },
         onLoadComplete: function () {
