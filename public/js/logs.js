@@ -1,10 +1,9 @@
 const IP = "www.alkatra.com";
 let paymentList = [];
 
-async function loadPayments() {
-  let results = await fetch("https://" + IP + "/api/logs");
+async function loadPayments(param) {
+  let results = await fetch("https://" + IP + "/api/" + param);
   paymentList = await results.json();
-  console.log(paymentList);
   if (paymentList.length == 0) {
     document.getElementById("loglist").innerHTML =
       "You don't have any logs yet.";
@@ -25,5 +24,5 @@ async function loadPayments() {
 }
 
 window.onload = function () {
-  loadPayments();
+  loadPayments("logs");
 };
