@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 var User = require("../models/user");
 var Logs = require("../models/log");
-var Token = require("../models/log");
-var Client = require("../models/log");
+var Token = require("../models/token");
+var Client = require("../models/client");
 
 const isAdmin = require("../middleware/isAdmin");
 router.use(isAdmin);
