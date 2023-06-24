@@ -11,5 +11,3 @@ Key Features:
 4. **HTTPS and Secure Environment**: The system communicates via HTTPS and operates in a secure environment for safe and reliable processing of payments.
 
 This project is a testament to modern, secure, and efficient payment processing solutions. Whether you're seeking to understand payment integrations, exploring recurring payment systems, or studying robust application architecture, "PayMeNow" offers valuable insights.
-
-*Note: To use this project, you must have Node.js, Express.js, and MongoDB installed and configured. Please refer to the "Installation" section of the documentation for more information on how to set up and run this project.*
