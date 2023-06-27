@@ -1,8 +1,8 @@
-# PayMeNow
+# AutoPay
 
-This repository is the backbone of a robust and comprehensive automated recurring payments project named "PayMeNow". Built using Node.js, Express.js, and MongoDB, this project integrates with Australia Post's SecurePay's testing API to automate various financial transactions.
+This repository is the backbone of a robust and comprehensive automated recurring payments project named "AutoPay". Built using Node.js, Express.js, and MongoDB, this project integrates with Australia Post's SecurePay's testing API to automate various financial transactions.
 
-Over a span of 4 months, the system was hosted on an AWS server and processed more than $12,000 in test payments, demonstrating its robustness and effectiveness. The platform is equipped to handle various payment operations such as cancellations, refunds, adjustments to pay cycles, modifications to payment plans, and user management, all through a user-friendly, web-based graphical user interface.
+Over a span of 4 months, the system was hosted on an AWS server and processed more than $12,000 in test payments (56 transactions), demonstrating its robustness and effectiveness. The platform is equipped to handle various payment operations such as cancellations, refunds, adjustments to pay cycles, modifications to payment plans, and user management, all through a user-friendly, web-based graphical user interface.
 
 Key Features:
 1. **SecurePay Integration**: The project uses SecurePay's testing API, enabling the application to offer a fully automated recurring payments system.
